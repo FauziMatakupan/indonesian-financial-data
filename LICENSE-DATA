@@ -1,0 +1,17 @@
+# Data sample notice
+
+The CSV files in this repository are **samples**, provided for schema review,
+prototyping, and teaching.
+
+1. **Rights.** The underlying financial figures are published by the Indonesia Stock
+   Exchange (IDX) as public company statistics. Rights in the underlying data remain with
+   IDX and the respective issuers. This repository claims no ownership over them.
+2. **No warranty.** Figures are copied programmatically from a public source at a point in
+   time. They may contain source errors, revisions, or omissions. No fitness for a
+   particular purpose is claimed.
+3. **Not advice.** Nothing here is investment, accounting, or legal advice.
+4. **Limitations.** Most observations are Q3 unaudited statements; 2021–2022 ratios are
+   preliminary and normalized; 2025 is a trailing year. See the dataset README.
+5. **Redistribution.** You may reuse these samples with attribution to this repository and
+   to IDX as the original source. Do not present them as audited statements.
+6. **Removal.** If a rights holder objects to a file here, it will be removed on request.

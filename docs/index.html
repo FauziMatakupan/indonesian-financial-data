@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IDX/BEI Financial Panel 2021–2025 — free sample</title>
+<meta name="description" content="A free 25-row sample of an IDX/BEI financial-ratio panel: 4,408 observations, 975 tickers, 11 sectors, 22 columns, 2021–2025.">
+<style>
+  :root{
+    --bg:#070b14; --panel:#0e1727; --line:rgba(148,163,184,.22);
+    --txt:#f1f5f9; --mut:#94a3b8; --cyan:#22d3ee; --lime:#a3e635;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:
+      radial-gradient(900px 500px at 85% -10%, rgba(34,211,238,.16), transparent 60%),
+      linear-gradient(135deg,#070b14,#0b1524 60%,#0a1220);
+    color:var(--txt); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:56px 24px 80px}
+  .pill{display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;
+    border:1px solid rgba(34,211,238,.38);color:var(--cyan);font-size:12px;font-weight:700;
+    letter-spacing:2px;text-transform:uppercase;background:rgba(34,211,238,.07)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan)}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.1;letter-spacing:-1px;margin:22px 0 12px}
+  h1 span{color:var(--cyan)}
+  .lead{color:var(--mut);font-size:18px;max-width:720px;margin:0 0 26px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0}
+  .stat{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .stat b{display:block;font-size:24px;color:var(--lime)}
+  .stat span{font-size:13px;color:var(--mut)}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:26px 0 8px}
+  a.btn{display:inline-block;padding:13px 22px;border-radius:12px;font-weight:700;text-decoration:none;
+    background:linear-gradient(135deg,var(--cyan),var(--lime));color:#071018}
+  a.ghost{color:var(--txt);border:1px solid var(--line);padding:12px 20px;border-radius:12px;text-decoration:none}
+  .small{font-size:13px;color:var(--mut)}
+  h2{font-size:20px;margin:40px 0 12px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid rgba(148,163,184,.14)}
+  th{color:var(--cyan);font-size:12px;text-transform:uppercase;letter-spacing:1.4px}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:#e2e8f0}
+  .note{margin-top:26px;padding:16px 18px;border-left:3px solid var(--lime);
+    background:rgba(163,230,53,.06);border-radius:0 10px 10px 0;color:#cbd5e1;font-size:14px}
+  footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);color:#64748b;font-size:13px}
+  @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="pill"><span class="dot"></span>Free sample</div>
+  <h1>IDX/BEI financial panel <span>2021–2025</span></h1>
+  <p class="lead">Company-level financial ratios for issuers listed on the Indonesia Stock
+  Exchange. This page hosts a free 25-row sample; the full panel is a paid dataset.</p>
+
+  <div class="stats">
+    <div class="stat"><b>4,408</b><span>observations</span></div>
+    <div class="stat"><b>975</b><span>tickers</span></div>
+    <div class="stat"><b>11</b><span>IDX-IC sectors</span></div>
+    <div class="stat"><b>22</b><span>columns</span></div>
+  </div>
+
+  <div class="cta">
+    <a class="btn" href="downloads/bei-panel-sample-2026-11-07.csv" download>Download sample CSV (25 rows)</a>
+    <a class="ghost" href="https://github.com/FauziMatakupan/indonesian-financial-data">View repository</a>
+  </div>
+  <p class="small">25 well-known tickers, latest year, all 22 columns. No signup.</p>
+
+  <h2>What is in each row</h2>
+  <table>
+    <thead><tr><th>Group</th><th>Columns</th></tr></thead>
+    <tbody>
+      <tr><td>Identity</td><td><code>kode_saham</code>, <code>nama_emiten</code>, <code>sektor</code>, <code>subsektor</code>, <code>tahun</code>, <code>fs_date</code>, <code>audit</code>, <code>sharia</code></td></tr>
+      <tr><td>Ratios</td><td><code>roa_pct</code>, <code>roe_pct</code>, <code>der</code>, <code>npm_pct</code>, <code>eps_idr</code>, <code>book_value</code>, <code>pbv</code>, <code>per</code></td></tr>
+      <tr><td>Size</td><td><code>assets_miliar_idr</code>, <code>liabilities_miliar_idr</code>, <code>equity_miliar_idr</code>, <code>sales_miliar_idr</code>, <code>profit_attr_owner_miliar_idr</code>, <code>firm_size_lnassets</code></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Read this before using</h2>
+  <div class="note">
+    Most observations are Q3 (30 September) unaudited, as published by IDX. 2021–2022
+    ratios are preliminary and normalized ×100. 2025 is a trailing year. Blank cells mean
+    the source published nothing — never zero. Not investment advice.
+  </div>
+
+  <h2>Full panel</h2>
+  <p class="small">The complete dataset adds all 4,408 rows, quarterly data (16,138 rows,
+  20 periods), 11 per-sector files, a codebook, and runnable R/Stata/SPSS syntax:
+  <a href="https://fastwork.id/user/fauzimatakupan/data-analysis-11054397" style="color:var(--cyan)">Fastwork listing</a>.
+  The sample and this page are free; the full panel is paid.</p>
+
+  <footer>
+    Sample notice: rights in the underlying figures remain with IDX and the issuers.
+    Not affiliated with or endorsed by IDX. Built by Matakupan Labs.
+  </footer>
+</div>
+</body>
+</html>
