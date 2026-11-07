@@ -3,96 +3,617 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>IDX/BEI Financial Panel 2021–2025 — free sample</title>
-<meta name="description" content="A free 25-row sample of an IDX/BEI financial-ratio panel: 4,408 observations, 975 tickers, 11 sectors, 22 columns, 2021–2025.">
+<title>IDX/BEI Financial Panel 2021–2025 — free 25-row sample</title>
+<meta name="description" content="A free 25-row sample of the IDX/BEI financial-ratio panel: 22 columns, 4.408 observations in the full dataset, 900+ tickers, 11 sectors, 2021–2025.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#070b14; --panel:#0e1727; --line:rgba(148,163,184,.22);
-    --txt:#f1f5f9; --mut:#94a3b8; --cyan:#22d3ee; --lime:#a3e635;
+    --ink:#0c0f0d;
+    --paper:#eceee4;
+    --paper-2:#e4e7db;
+    --ink-soft:#1e2620;
+    --muted:#4d564f;
+    --rule:#b7bdac;
+    --rule-soft:#d5d9cb;
+    --green:#1d6b3c;
+    --green-bright:#2f8f57;
+    --mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --display:"Anton", "Arial Narrow", Impact, sans-serif;
   }
   *{box-sizing:border-box}
+  html{background:var(--ink)}
   body{
-    margin:0; background:
-      radial-gradient(900px 500px at 85% -10%, rgba(34,211,238,.16), transparent 60%),
-      linear-gradient(135deg,#070b14,#0b1524 60%,#0a1220);
-    color:var(--txt); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-    min-height:100vh;
+    margin:0;
+    background:var(--ink);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:920px;margin:0 auto;padding:56px 24px 80px}
-  .pill{display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;
-    border:1px solid rgba(34,211,238,.38);color:var(--cyan);font-size:12px;font-weight:700;
-    letter-spacing:2px;text-transform:uppercase;background:rgba(34,211,238,.07)}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan)}
-  h1{font-size:clamp(30px,5vw,46px);line-height:1.1;letter-spacing:-1px;margin:22px 0 12px}
-  h1 span{color:var(--cyan)}
-  .lead{color:var(--mut);font-size:18px;max-width:720px;margin:0 0 26px}
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0}
-  .stat{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
-  .stat b{display:block;font-size:24px;color:var(--lime)}
-  .stat span{font-size:13px;color:var(--mut)}
-  .cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:26px 0 8px}
-  a.btn{display:inline-block;padding:13px 22px;border-radius:12px;font-weight:700;text-decoration:none;
-    background:linear-gradient(135deg,var(--cyan),var(--lime));color:#071018}
-  a.ghost{color:var(--txt);border:1px solid var(--line);padding:12px 20px;border-radius:12px;text-decoration:none}
-  .small{font-size:13px;color:var(--mut)}
-  h2{font-size:20px;margin:40px 0 12px}
-  table{width:100%;border-collapse:collapse;font-size:14px}
-  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid rgba(148,163,184,.14)}
-  th{color:var(--cyan);font-size:12px;text-transform:uppercase;letter-spacing:1.4px}
-  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:#e2e8f0}
-  .note{margin-top:26px;padding:16px 18px;border-left:3px solid var(--lime);
-    background:rgba(163,230,53,.06);border-radius:0 10px 10px 0;color:#cbd5e1;font-size:14px}
-  footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);color:#64748b;font-size:13px}
-  @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .skip{
+    position:absolute;
+    left:-9999px;
+    top:0;
+    z-index:10;
+    background:var(--paper);
+    color:var(--ink);
+    padding:12px 16px;
+    font-family:var(--mono);
+    font-size:12px;
+  }
+  .skip:focus{left:12px;top:12px}
+  .sr-only{
+    position:absolute;
+    width:1px;
+    height:1px;
+    padding:0;
+    margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
+  }
+  .mono{font-family:var(--mono);font-size:.94em}
+  .sheet{
+    position:relative;
+    width:min(1120px, calc(100% - 48px));
+    margin:clamp(28px,5vw,64px) auto;
+    background:var(--paper);
+    padding:clamp(24px,4.6vw,56px);
+  }
+  .crop{
+    position:absolute;
+    width:18px;
+    height:18px;
+    pointer-events:none;
+    border-color:var(--green-bright);
+    border-style:solid;
+    border-width:0;
+  }
+  .crop.tl{top:-13px;left:-13px;border-top-width:1px;border-left-width:1px}
+  .crop.tr{top:-13px;right:-13px;border-top-width:1px;border-right-width:1px}
+  .crop.bl{bottom:-13px;left:-13px;border-bottom-width:1px;border-left-width:1px}
+  .crop.br{bottom:-13px;right:-13px;border-bottom-width:1px;border-right-width:1px}
+
+  .meta{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:6px 24px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+    font-family:var(--mono);
+    font-size:10.5px;
+    line-height:1.5;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  .hero{
+    display:grid;
+    grid-template-columns:minmax(0,1.4fr) minmax(280px,.6fr);
+    gap:clamp(24px,5vw,64px);
+    align-items:start;
+    padding:clamp(28px,5vw,52px) 0 clamp(26px,4vw,40px);
+    border-bottom:1px solid var(--rule);
+  }
+  .tag{
+    display:inline-block;
+    margin:0 0 20px;
+    padding:6px 10px;
+    background:var(--green);
+    color:var(--paper);
+    font-family:var(--mono);
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:.2em;
+    line-height:1.2;
+  }
+  h1{
+    margin:0;
+    font-family:var(--display);
+    font-weight:400;
+    font-size:clamp(46px,8vw,104px);
+    line-height:.92;
+    letter-spacing:.005em;
+    text-transform:uppercase;
+  }
+  .period{
+    margin:18px 0 0;
+    font-family:var(--mono);
+    font-size:clamp(16px,1.9vw,21px);
+    letter-spacing:.02em;
+    color:var(--green);
+  }
+  .hero-note{
+    border-top:2px solid var(--ink);
+    padding-top:16px;
+  }
+  .lede{
+    margin:0 0 20px;
+    max-width:44ch;
+    font-size:clamp(15.5px,1.6vw,18px);
+    line-height:1.55;
+    color:var(--ink-soft);
+  }
+  .datum{
+    margin:0;
+    font-family:var(--mono);
+    font-size:12.5px;
+    line-height:1.75;
+    color:var(--muted);
+  }
+  .datum strong{color:var(--ink);font-weight:500}
+  .actions{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:14px 20px;
+    margin:26px 0 10px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:baseline;
+    gap:12px;
+    min-height:46px;
+    padding:13px 18px;
+    background:var(--ink);
+    border:1px solid var(--ink);
+    color:var(--paper);
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    text-decoration:none;
+    transition:background .16s ease, border-color .16s ease, color .16s ease;
+  }
+  .btn:hover{background:var(--green);border-color:var(--green);color:#fff}
+  .btn:focus-visible{outline:2px solid var(--green-bright);outline-offset:3px}
+  .btn-meta{
+    font-family:var(--mono);
+    font-size:11px;
+    font-weight:400;
+    letter-spacing:.04em;
+    color:#c6cec0;
+  }
+  .btn:hover .btn-meta{color:#e8eee4}
+  .link{
+    color:var(--ink);
+    font-size:14px;
+    font-weight:500;
+    text-decoration:none;
+    border-bottom:1px solid var(--green);
+    padding-bottom:2px;
+  }
+  .link:hover{color:var(--green)}
+  .link:focus-visible{outline:2px solid var(--green-bright);outline-offset:3px}
+  .micro{
+    margin:0;
+    font-family:var(--mono);
+    font-size:10.5px;
+    line-height:1.6;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    border-bottom:1px solid var(--rule);
+  }
+  .stat{
+    padding:22px 20px 24px;
+    border-left:1px solid var(--rule);
+  }
+  .stat:first-child{border-left:0;padding-left:0}
+  .stat b{
+    display:block;
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:clamp(20px,2.5vw,31px);
+    line-height:1.1;
+    letter-spacing:-.01em;
+    color:var(--green);
+  }
+  .stat-label{
+    display:block;
+    margin-top:8px;
+    font-size:13px;
+    font-weight:500;
+    line-height:1.35;
+    color:var(--ink);
+  }
+  .stat-note{
+    display:block;
+    margin-top:4px;
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  .section-head{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:8px 20px;
+    margin:clamp(34px,4.6vw,54px) 0 14px;
+  }
+  h2{
+    margin:0;
+    font-family:var(--display);
+    font-weight:400;
+    font-size:clamp(20px,2.4vw,28px);
+    line-height:1;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+  }
+
+  .table-scroll{
+    overflow-x:auto;
+    border-top:2px solid var(--ink);
+    border-bottom:1px solid var(--rule);
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+  }
+  .data-table{
+    min-width:640px;
+    font-size:14px;
+  }
+  .data-table th{
+    padding:11px 12px;
+    border-bottom:1px solid var(--rule);
+    font-family:var(--mono);
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    text-align:left;
+    white-space:nowrap;
+    color:var(--muted);
+  }
+  .data-table th.num{text-align:right}
+  .data-table td{
+    padding:13px 12px;
+    border-bottom:1px solid var(--rule-soft);
+    vertical-align:baseline;
+    white-space:nowrap;
+  }
+  .data-table tbody tr:last-child td{border-bottom:0}
+  .data-table tbody tr:hover{background:var(--paper-2)}
+  .data-table .num{
+    text-align:right;
+    font-family:var(--mono);
+    font-variant-numeric:tabular-nums;
+  }
+  .data-table .code{
+    font-family:var(--mono);
+    font-weight:500;
+    letter-spacing:.02em;
+  }
+  .table-note{
+    margin:10px 0 0;
+    font-family:var(--mono);
+    font-size:11px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+
+  .note-strip{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:8px 18px;
+    margin:20px 0 0;
+    padding:13px 0;
+    border-top:1px solid var(--ink);
+    border-bottom:1px solid var(--ink);
+    font-family:var(--mono);
+    font-size:11.5px;
+    line-height:1.5;
+    color:var(--ink-soft);
+  }
+  .note-label{
+    font-size:10px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--green);
+    font-weight:500;
+  }
+
+  .cols{
+    margin:0;
+    border-top:1px solid var(--rule);
+  }
+  .cols-row{
+    display:grid;
+    grid-template-columns:156px minmax(0,1fr);
+    gap:0 22px;
+    padding:13px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .cols dt{
+    padding-top:2px;
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .cols dd{
+    margin:0;
+    font-family:var(--mono);
+    font-size:12.5px;
+    line-height:2;
+    color:var(--ink-soft);
+  }
+  .cols code{font:inherit;color:var(--ink)}
+
+  .split{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:clamp(26px,5vw,60px);
+    margin-top:clamp(38px,5vw,60px);
+    padding-top:26px;
+    border-top:1px solid var(--ink);
+  }
+  .split h2{margin-bottom:14px}
+  .split p{
+    margin:0 0 12px;
+    font-size:14.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+  }
+  .split p:last-child{margin-bottom:0}
+  .split .link{font-size:14px}
+  .limits{
+    margin:0;
+    padding:0;
+    list-style:none;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .limits li{
+    padding:8px 0;
+    border-bottom:1px solid var(--rule-soft);
+  }
+  .limits li:last-child{border-bottom:0}
+
+  footer{
+    margin-top:clamp(42px,6vw,68px);
+    padding-top:18px;
+    border-top:2px solid var(--ink);
+  }
+  .footer-row{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:8px 24px;
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .footer-row a{
+    font-size:11px;
+    letter-spacing:.02em;
+    text-transform:none;
+    color:var(--ink);
+    text-decoration:none;
+    border-bottom:1px solid var(--green);
+  }
+  .footer-row a:hover{color:var(--green)}
+  .footer-row a:focus-visible{outline:2px solid var(--green-bright);outline-offset:3px}
+  .footer-note{
+    margin:14px 0 0;
+    max-width:72ch;
+    font-size:12px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  .disclaimer{
+    margin:12px 0 0;
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.06em;
+    color:var(--green);
+  }
+
+  @media(max-width:860px){
+    .hero{grid-template-columns:1fr}
+    .hero-note{border-top:1px solid var(--rule);padding-top:16px}
+    .stats{grid-template-columns:1fr 1fr}
+    .stat{padding:18px 16px 20px}
+    .stat:nth-child(odd){border-left:0;padding-left:0}
+    .stat:nth-child(n+3){border-top:1px solid var(--rule)}
+    .split{grid-template-columns:1fr}
+  }
+  @media(max-width:600px){
+    .sheet{width:calc(100% - 24px);padding:22px 18px 26px;margin:18px auto}
+    .crop{display:none}
+    .meta{font-size:9.5px;letter-spacing:.12em}
+    h1{font-size:clamp(42px,13vw,64px)}
+    .cols-row{grid-template-columns:1fr;gap:6px}
+    .footer-row{display:block}
+    .footer-row a{display:inline-block;margin-top:6px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .btn{transition:none}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="pill"><span class="dot"></span>Free sample</div>
-  <h1>IDX/BEI financial panel <span>2021–2025</span></h1>
-  <p class="lead">Company-level financial ratios for issuers listed on the Indonesia Stock
-  Exchange. This page hosts a free 25-row sample; the full panel is a paid dataset.</p>
+<a class="skip" href="#main">Skip to content</a>
+<main id="main" class="sheet">
+  <span class="crop tl" aria-hidden="true"></span>
+  <span class="crop tr" aria-hidden="true"></span>
+  <span class="crop bl" aria-hidden="true"></span>
+  <span class="crop br" aria-hidden="true"></span>
 
-  <div class="stats">
-    <div class="stat"><b>4,408</b><span>observations</span></div>
-    <div class="stat"><b>975</b><span>tickers</span></div>
-    <div class="stat"><b>11</b><span>IDX-IC sectors</span></div>
-    <div class="stat"><b>22</b><span>columns</span></div>
+  <header>
+    <div class="meta">
+      <span>Matakupan Labs</span>
+      <span>Data sheet — 01</span>
+      <span>IDX · BEI</span>
+    </div>
+
+    <div class="hero">
+      <div>
+        <p class="tag" lang="id">SAMPEL GRATIS</p>
+        <h1>IDX/BEI<br>Financial<br>Panel</h1>
+        <p class="period">2021–2025</p>
+      </div>
+      <div class="hero-note">
+        <p class="lede">Company-level financial ratios for issuers listed on the Indonesia Stock Exchange. This page hosts the free sample; the full panel is a paid dataset.</p>
+        <p class="datum" lang="id"><strong>25 baris · 22 kolom</strong> — dari panel 4.408 observasi<br>900+ emiten · 11 sektor · 2021–2025</p>
+        <div class="actions">
+          <a class="btn" href="downloads/bei-panel-sample-2026-11-07.csv" download>Unduh CSV <span class="btn-meta">25 baris · 4.946 byte</span></a>
+          <a class="link" href="https://github.com/FauziMatakupan/indonesian-financial-data">Lihat repository</a>
+        </div>
+        <p class="micro" lang="id">Tanpa login · unduh CSV</p>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <b>25</b>
+        <span class="stat-label" lang="id">baris · 22 kolom</span>
+        <span class="stat-note" lang="id">sampel gratis</span>
+      </div>
+      <div class="stat">
+        <b>4.408</b>
+        <span class="stat-label">observations</span>
+        <span class="stat-note">full dataset</span>
+      </div>
+      <div class="stat">
+        <b>900+</b>
+        <span class="stat-label" lang="id">emiten · 11 sektor</span>
+        <span class="stat-note">full dataset</span>
+      </div>
+      <div class="stat">
+        <b>2021–2025</b>
+        <span class="stat-label">period</span>
+        <span class="stat-note">Q3 snapshot</span>
+      </div>
+    </div>
+  </header>
+
+  <section aria-labelledby="preview-title">
+    <div class="section-head">
+      <h2 id="preview-title">Pratinjau</h2>
+      <span class="micro" lang="id">3 dari 25 baris</span>
+    </div>
+    <div class="table-scroll">
+      <table class="data-table">
+        <caption class="sr-only">Three sample rows from the 25-row free sample</caption>
+        <thead>
+          <tr>
+            <th scope="col">Kode</th>
+            <th scope="col">Sektor</th>
+            <th scope="col" class="num">Tahun</th>
+            <th scope="col" class="num">ROA</th>
+            <th scope="col" class="num">ROE</th>
+            <th scope="col" class="num">DER</th>
+            <th scope="col" class="num">Audit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="code">BBCA</td>
+            <td>Financials</td>
+            <td class="num">2025</td>
+            <td class="num">3.7153</td>
+            <td class="num">20.6625</td>
+            <td class="num">4.53</td>
+            <td class="num">U</td>
+          </tr>
+          <tr>
+            <td class="code">TLKM</td>
+            <td>Infrastructures</td>
+            <td class="num">2025</td>
+            <td class="num">7.454</td>
+            <td class="num">14.0363</td>
+            <td class="num">0.88</td>
+            <td class="num">U</td>
+          </tr>
+          <tr>
+            <td class="code">GOTO</td>
+            <td>Technology</td>
+            <td class="num">2025</td>
+            <td class="num">-3.8407</td>
+            <td class="num">-5.5573</td>
+            <td class="num">0.45</td>
+            <td class="num">U</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note" lang="id">U = unaudited. Nilai desimal dan tanda minus disalin apa adanya.</p>
+  </section>
+
+  <aside class="note-strip" lang="id">
+    <span class="note-label">Catatan data</span>
+    <span>Q3 unaudited · 2021–2022 preliminer · 2025 trailing</span>
+  </aside>
+
+  <section aria-labelledby="cols-title">
+    <div class="section-head">
+      <h2 id="cols-title">What is in each row</h2>
+      <span class="micro">22 columns</span>
+    </div>
+    <dl class="cols">
+      <div class="cols-row">
+        <dt>Identity</dt>
+        <dd><code>kode_saham</code>, <code>nama_emiten</code>, <code>sektor</code>, <code>subsektor</code>, <code>tahun</code>, <code>fs_date</code>, <code>audit</code>, <code>sharia</code></dd>
+      </div>
+      <div class="cols-row">
+        <dt>Ratios</dt>
+        <dd><code>roa_pct</code>, <code>roe_pct</code>, <code>der</code>, <code>npm_pct</code>, <code>eps_idr</code>, <code>book_value</code>, <code>pbv</code>, <code>per</code></dd>
+      </div>
+      <div class="cols-row">
+        <dt>Size</dt>
+        <dd><code>assets_miliar_idr</code>, <code>liabilities_miliar_idr</code>, <code>equity_miliar_idr</code>, <code>sales_miliar_idr</code>, <code>profit_attr_owner_miliar_idr</code>, <code>firm_size_lnassets</code></dd>
+      </div>
+    </dl>
+  </section>
+
+  <div class="split">
+    <section aria-labelledby="full-title">
+      <h2 id="full-title">Cakupan penuh</h2>
+      <p>The complete dataset adds all 4.408 rows, quarterly data (16.138 rows, 20 periods), 11 per-sector files, a codebook, and runnable R/Stata/SPSS syntax. It is available through the <a class="link" href="https://fastwork.id/user/fauzimatakupan/data-analysis-11054397">Fastwork listing</a>.</p>
+      <p lang="id">Sampel dan halaman ini gratis; panel penuh berbayar.</p>
+    </section>
+    <section aria-labelledby="limits-title">
+      <h2 id="limits-title">Sebelum dipakai</h2>
+      <ul class="limits">
+        <li>Most observations are Q3 (30 September) unaudited, as published by IDX.</li>
+        <li>2021–2022 ratios are preliminary and normalized ×100.</li>
+        <li>2025 is a trailing year at snapshot time.</li>
+        <li>Blank cells mean the source published nothing — never zero.</li>
+        <li>Descriptive data only. Not investment advice.</li>
+      </ul>
+    </section>
   </div>
-
-  <div class="cta">
-    <a class="btn" href="downloads/bei-panel-sample-2026-11-07.csv" download>Download sample CSV (25 rows)</a>
-    <a class="ghost" href="https://github.com/FauziMatakupan/indonesian-financial-data">View repository</a>
-  </div>
-  <p class="small">25 well-known tickers, latest year, all 22 columns. No signup.</p>
-
-  <h2>What is in each row</h2>
-  <table>
-    <thead><tr><th>Group</th><th>Columns</th></tr></thead>
-    <tbody>
-      <tr><td>Identity</td><td><code>kode_saham</code>, <code>nama_emiten</code>, <code>sektor</code>, <code>subsektor</code>, <code>tahun</code>, <code>fs_date</code>, <code>audit</code>, <code>sharia</code></td></tr>
-      <tr><td>Ratios</td><td><code>roa_pct</code>, <code>roe_pct</code>, <code>der</code>, <code>npm_pct</code>, <code>eps_idr</code>, <code>book_value</code>, <code>pbv</code>, <code>per</code></td></tr>
-      <tr><td>Size</td><td><code>assets_miliar_idr</code>, <code>liabilities_miliar_idr</code>, <code>equity_miliar_idr</code>, <code>sales_miliar_idr</code>, <code>profit_attr_owner_miliar_idr</code>, <code>firm_size_lnassets</code></td></tr>
-    </tbody>
-  </table>
-
-  <h2>Read this before using</h2>
-  <div class="note">
-    Most observations are Q3 (30 September) unaudited, as published by IDX. 2021–2022
-    ratios are preliminary and normalized ×100. 2025 is a trailing year. Blank cells mean
-    the source published nothing — never zero. Not investment advice.
-  </div>
-
-  <h2>Full panel</h2>
-  <p class="small">The complete dataset adds all 4,408 rows, quarterly data (16,138 rows,
-  20 periods), 11 per-sector files, a codebook, and runnable R/Stata/SPSS syntax:
-  <a href="https://fastwork.id/user/fauzimatakupan/data-analysis-11054397" style="color:var(--cyan)">Fastwork listing</a>.
-  The sample and this page are free; the full panel is paid.</p>
 
   <footer>
-    Sample notice: rights in the underlying figures remain with IDX and the issuers.
-    Not affiliated with or endorsed by IDX. Built by Matakupan Labs.
+    <div class="footer-row">
+      <span>Matakupan Labs</span>
+      <a href="https://fauzimatakupan.github.io/indonesian-financial-data/">fauzimatakupan.github.io/indonesian-financial-data</a>
+    </div>
+    <p class="footer-note">Sample notice: rights in the underlying figures remain with IDX and the issuers. Not affiliated with or endorsed by IDX. Built by Matakupan Labs. Berkas: <span class="mono">bei-panel-sample-2026-11-07.csv</span> · 25 baris · 22 kolom · 4.946 byte.</p>
+    <p class="disclaimer" lang="id">Bukan nasihat investasi</p>
   </footer>
-</div>
+</main>
 </body>
 </html>
