@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fauzimatakupan.github.io/indonesian-financial-data/sitemap.xml
